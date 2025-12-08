@@ -6,7 +6,7 @@
 /*   By: hshuhei <hshuhei@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 12:04:55 by hshuhei           #+#    #+#             */
-/*   Updated: 2025/12/07 17:50:33 by hshuhei          ###   ########.fr       */
+/*   Updated: 2025/12/08 16:09:10 by hshuhei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_next_line(int fd)
 	char		*newline_ptr;
 	int			bytes;
 	size_t		len;
+	char		*next_stash;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -39,5 +40,18 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	newline_ptr = ft_strchr(stash, '\n');
-	len = newline_ptr ? (newline_ptr - stash + 1) : ft_strlen(stash);
+	if (newline_ptr)
+		len = newline_ptr - stash + 1;
+	else
+		len = ft_strlen(stash);
+	line = malloc(sizeof(char) * (len + 1));
+	if (!line)
+		return (NULL);
+	ft_strlcpy (line, stash, len + 1);
+	next_stash = NULL;
+	if (newline_ptr)
+		next_stash = ft_strdup(newline_ptr + 1);
+	free(stash);
+	stash = next_stash;
+	return (line);
 }
