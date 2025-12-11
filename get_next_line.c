@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
 char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*buf;
 	char		*newline_ptr;
 	int			bytes;
+	char		*line;
 	size_t		len;
 	char		*next_stash;
 
@@ -55,3 +58,25 @@ char	*get_next_line(int fd)
 	stash = next_stash;
 	return (line);
 }
+
+#include <fcntl.h>
+int main(void)
+{
+	int     fd;
+    char    *line;
+
+    fd = open("gnl.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        printf("Error: Could not open file\n");
+        return (1);
+    }
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s", line);
+        free(line); 
+    }
+    close(fd);
+    return (0);
+}
+

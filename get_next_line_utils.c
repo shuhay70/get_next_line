@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "get_next_line.h"
 
-static size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
@@ -22,7 +22,7 @@ static size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	int	s_len;
 
@@ -84,6 +84,8 @@ char	*gnl_strjoin(char *s1, char *s2)
     size_t  i;
     size_t  j;
 
+    if (!s1)
+        len1 = 0;
     len1 = ft_strlen(s1);
     len2 = ft_strlen(s2);
     new_str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
