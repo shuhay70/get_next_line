@@ -27,8 +27,12 @@ char	*get_next_line(int fd)
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	while (1)
 	{
-		if (stash && (newline_ptr = ft_strchr(stash, '\n')))
-			break ;
+		if (stash)
+		{
+			newline_ptr = ft_strchr(stash, '\n');
+			if (newline_ptr)
+				break ;
+		}
 		bytes = read(fd, buf, BUFFER_SIZE);
 		if (bytes <= 0)
 			break ;
@@ -59,24 +63,24 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-#include <fcntl.h>
-int main(void)
-{
-	int     fd;
-    char    *line;
+// #include <fcntl.h>
+// int main(void)
+// {
+// 	int     fd;
+//     char    *line;
 
-    fd = open("gnl.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        printf("Error: Could not open file\n");
-        return (1);
-    }
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s", line);
-        free(line); 
-    }
-    close(fd);
-    return (0);
-}
+//     fd = open("gnl.txt", O_RDONLY);
+//     if (fd == -1)
+//     {
+//         printf("Error: Could not open file\n");
+//         return (1);
+//     }
+//     while ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("%s", line);
+//         free(line); 
+//     }
+//     close(fd);
+//     return (0);
+// }
 

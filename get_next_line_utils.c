@@ -24,15 +24,17 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	s_len;
+	int	i;
 
-	s_len = ft_strlen(s);
-	while (s_len >= 0)
+	i = 0;
+	while (s[i])
 	{
-		if (s[s_len] == (char)c)
-			return ((char *)&s[s_len]);
-		s_len--;
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
 	}
+	if (s[i] == (char)c)
+		return ((char *)&s[i]);
 	return (0);
 }
 
@@ -86,7 +88,8 @@ char	*gnl_strjoin(char *s1, char *s2)
 
     if (!s1)
         len1 = 0;
-    len1 = ft_strlen(s1);
+	else
+    	len1 = ft_strlen(s1);
     len2 = ft_strlen(s2);
     new_str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
     if (!new_str)
